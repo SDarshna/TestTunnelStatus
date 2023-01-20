@@ -1,0 +1,201 @@
+The script is used to check the operational status of a tunnel associated with a SC/RN/all node (default all nodes) for a default of 30 days. The output can be filtered for a specific state of the tunnel (all,up,down,init,inactive, default: all). Number of days for which teh data is fetched can also be provided as a filter. Output of this script is in the json/csv format.(Prisma Access Insights APIs have been used.)
+
+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py --help                               
+usage: Tunnel_Status.py [-h] [-t1 T1SECRET] [-node NODETYPE] [-state NODESTATE] [-days DAYS]
+
+Checking the operational status of tunnel associated with RN/SC .
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -t1 T1SECRET, --T1Secret T1SECRET
+                        Input secret file in .yml format for the tenant(T1)
+  -node NODETYPE, --NodeType NODETYPE
+                        Inputs: all/SC/RN for Service Connection and Remote Network respectively
+  -state NODESTATE, --NodeState NODESTATE
+                        Inputs: all/up/down/inactive
+  -days DAYS, --Days DAYS
+                        Data fetched for the last n days
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py       
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++---------------------------------+---------------------------------+--------------+--------------------+
+| Tunnel Name                     | Site Name                       | Tunnel State | Tunnel Type        |
++=================================+=================================+==============+====================+
+| AUTO-CGX_Branch03_01_a870       | AUTO-CGX_Branch03_01_a870       | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CN1G2X5R7ETW_01_7940   | AUTO-CGX_CN1G2X5R7ETW_01_7940   | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CNLU1UTML4MG_C170_a870 | AUTO-CGX_CNLU1UTML4MG_C170_a870 | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| DC1-ION1                        | SD-WAN DC1                      | Init         | Service Connection |
++---------------------------------+---------------------------------+--------------+--------------------+
+| HQ-Tunnel                       | Datacenter                      | Up           | Service Connection |
++---------------------------------+---------------------------------+--------------+--------------------+
+| RN-Tunnel                       | RN-FW                           | Down         | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node RN -state up
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++---------------------------------+---------------------------------+--------------+----------------+
+| Tunnel Name                     | Site Name                       | Tunnel State | Tunnel Type    |
++=================================+=================================+==============+================+
+| AUTO-CGX_Branch03_01_a870       | AUTO-CGX_Branch03_01_a870       | Up           | Remote Network |
++---------------------------------+---------------------------------+--------------+----------------+
+| AUTO-CGX_CN1G2X5R7ETW_01_7940   | AUTO-CGX_CN1G2X5R7ETW_01_7940   | Up           | Remote Network |
++---------------------------------+---------------------------------+--------------+----------------+
+| AUTO-CGX_CNLU1UTML4MG_C170_a870 | AUTO-CGX_CNLU1UTML4MG_C170_a870 | Up           | Remote Network |
++---------------------------------+---------------------------------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node RN -state down
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+-----------+--------------+----------------+
+| Tunnel Name | Site Name | Tunnel State | Tunnel Type    |
++=============+===========+==============+================+
+| RN-Tunnel   | RN-FW     | Down         | Remote Network |
++-------------+-----------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node SC -state init
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+------------+--------------+--------------------+
+| Tunnel Name | Site Name  | Tunnel State | Tunnel Type        |
++=============+============+==============+====================+
+| DC1-ION1    | SD-WAN DC1 | Init         | Service Connection |
++-------------+------------+--------------+--------------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node SC -state all 
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+------------+--------------+--------------------+
+| Tunnel Name | Site Name  | Tunnel State | Tunnel Type        |
++=============+============+==============+====================+
+| DC1-ION1    | SD-WAN DC1 | Init         | Service Connection |
++-------------+------------+--------------+--------------------+
+| HQ-Tunnel   | Datacenter | Up           | Service Connection |
++-------------+------------+--------------+--------------------+
+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node all -state up
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++---------------------------------+---------------------------------+--------------+--------------------+
+| Tunnel Name                     | Site Name                       | Tunnel State | Tunnel Type        |
++=================================+=================================+==============+====================+
+| AUTO-CGX_Branch03_01_a870       | AUTO-CGX_Branch03_01_a870       | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CN1G2X5R7ETW_01_7940   | AUTO-CGX_CN1G2X5R7ETW_01_7940   | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CNLU1UTML4MG_C170_a870 | AUTO-CGX_CNLU1UTML4MG_C170_a870 | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| HQ-Tunnel                       | Datacenter                      | Up           | Service Connection |
++---------------------------------+---------------------------------+--------------+--------------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node all -state down
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+-----------+--------------+----------------+
+| Tunnel Name | Site Name | Tunnel State | Tunnel Type    |
++=============+===========+==============+================+
+| RN-Tunnel   | RN-FW     | Down         | Remote Network |
++-------------+-----------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % 
++-------------+-----------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node all -state down -days 1
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+-----------+--------------+----------------+
+| Tunnel Name | Site Name | Tunnel State | Tunnel Type    |
++=============+===========+==============+================+
+| RN-Tunnel   | RN-FW     | Down         | Remote Network |
++-------------+-----------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -t1 T1-secret.yml -node all -state down -days 5
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++-------------+-----------+--------------+----------------+
+| Tunnel Name | Site Name | Tunnel State | Tunnel Type    |
++=============+===========+==============+================+
+| RN-Tunnel   | RN-FW     | Down         | Remote Network |
++-------------+-----------+--------------+----------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py -node all -state all -days 1 
+--------------------------------
+Script Execution Progress: 
+--------------------------------
+Login to TSG ID 1228584868 successful
++---------------------------------+---------------------------------+--------------+--------------------+
+| Tunnel Name                     | Site Name                       | Tunnel State | Tunnel Type        |
++=================================+=================================+==============+====================+
+| AUTO-CGX_Branch03_01_a870       | AUTO-CGX_Branch03_01_a870       | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CN1G2X5R7ETW_01_7940   | AUTO-CGX_CN1G2X5R7ETW_01_7940   | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| AUTO-CGX_CNLU1UTML4MG_C170_a870 | AUTO-CGX_CNLU1UTML4MG_C170_a870 | Up           | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+| DC1-ION1                        | SD-WAN DC1                      | Init         | Service Connection |
++---------------------------------+---------------------------------+--------------+--------------------+
+| HQ-Tunnel                       | Datacenter                      | Up           | Service Connection |
++---------------------------------+---------------------------------+--------------+--------------------+
+| RN-Tunnel                       | RN-FW                           | Down         | Remote Network     |
++---------------------------------+---------------------------------+--------------+--------------------+
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % cat tunnel-status.json                          
+{
+    "0": {
+        "Tunnel Name": "AUTO-CGX_Branch03_01_a870",
+        "Site Name": "AUTO-CGX_Branch03_01_a870",
+        "Tunnel State": "Up",
+        "Tunnel Type": "Remote Network"
+    },
+    "1": {
+        "Tunnel Name": "AUTO-CGX_CN1G2X5R7ETW_01_7940",
+        "Site Name": "AUTO-CGX_CN1G2X5R7ETW_01_7940",
+        "Tunnel State": "Up",
+        "Tunnel Type": "Remote Network"
+    },
+    "2": {
+        "Tunnel Name": "AUTO-CGX_CNLU1UTML4MG_C170_a870",
+        "Site Name": "AUTO-CGX_CNLU1UTML4MG_C170_a870",
+        "Tunnel State": "Up",
+        "Tunnel Type": "Remote Network"
+    },
+    "3": {
+        "Tunnel Name": "DC1-ION1",
+        "Site Name": "SD-WAN DC1",
+        "Tunnel State": "Init",
+        "Tunnel Type": "Service Connection"
+    },
+    "4": {
+        "Tunnel Name": "HQ-Tunnel",
+        "Site Name": "Datacenter",
+        "Tunnel State": "Up",
+        "Tunnel Type": "Service Connection"
+    },
+    "5": {
+        "Tunnel Name": "RN-Tunnel",
+        "Site Name": "RN-FW",
+        "Tunnel State": "Down",
+        "Tunnel Type": "Remote Network"
+    }
+}%                                                                                                        
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % cat tunnel-status.csv 
+Tunnel Name,Site Name,Tunnel State,Tunnel Type
+AUTO-CGX_Branch03_01_a870,AUTO-CGX_Branch03_01_a870,Up,Remote Network
+AUTO-CGX_CN1G2X5R7ETW_01_7940,AUTO-CGX_CN1G2X5R7ETW_01_7940,Up,Remote Network
+AUTO-CGX_CNLU1UTML4MG_C170_a870,AUTO-CGX_CNLU1UTML4MG_C170_a870,Up,Remote Network
+DC1-ION1,SD-WAN DC1,Init,Service Connection
+HQ-Tunnel,Datacenter,Up,Service Connection
+RN-Tunnel,RN-FW,Down,Remote Network
+(base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % 
