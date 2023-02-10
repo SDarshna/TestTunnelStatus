@@ -1,5 +1,7 @@
 The script is used to check the operational status of a tunnel associated with a SC/RN/all node (default all nodes) for a default of 30 days. The output can be filtered for a specific state of the tunnel (all,up,down,init,inactive, default: all). Number of days for which teh data is fetched can also be provided as a filter. Output of this script is in the json/csv format.(Prisma Access Insights APIs have been used.)
 
+Requirements:
+pip install git+https://github.com/PaloAltoNetworks/prisma-sase-sdk-python.git
 
 (base) dsubashchand@M-JY4VCQYQ64 Tunnel Status % ./Tunnel_Status.py --help                               
 usage: Tunnel_Status.py [-h] [-t1 T1SECRET] [-node NODETYPE] [-state NODESTATE] [-days DAYS]
